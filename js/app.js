@@ -6,25 +6,24 @@ $("#importBtn").click(function () {
     return;
   }
 
-  const reader = new FileReader();
   function showDetails(interval) {
     let html = "";
 
     Object.entries(interval).forEach(([key, value]) => {
       html += `
        <div class="detail-row">
-
-        <strong>${key}</strong>
-
-        <br>
-
-        ${value ?? ""}
-
-      </div>
-
-    <hr>
-
-    `;
+       
+       <strong>${key}</strong>
+       
+       <br>
+       
+       ${value ?? ""}
+       
+       </div>
+       
+       <hr>
+       
+       `;
     });
 
     $("#detailPanel").html(html);
@@ -69,20 +68,7 @@ $("#importBtn").click(function () {
     });
   }
 
-  reader.onload = function (e) {
-    const data = e.target.result;
-
-    const workbook = XLSX.read(data, {
-      type: "binary",
-    });
-
-    const sheet = workbook.Sheets[workbook.SheetNames[0]];
-
-    // Read sheet as array of arrays
-    const rows = XLSX.utils.sheet_to_json(sheet, {
-      header: 1,
-    });
-
+  ExcelReader.read(file, function (rows) {
     console.log("Raw Excel:");
     console.table(rows);
 
@@ -123,7 +109,5 @@ $("#importBtn").click(function () {
     console.log("Intervals:");
     console.table(intervals);
     renderTable(intervals);
-  };
-
-  reader.readAsBinaryString(file);
+  });
 });
