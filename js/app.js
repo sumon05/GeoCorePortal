@@ -7,14 +7,15 @@ $("#importBtn").click(function () {
   }
 
   ExcelReader.read(file, function (rows) {
-    console.log("Raw Excel:");
-    console.table(rows);
+    /* console.log("Raw Excel:");
+    console.table(rows); */
 
     // Parse intervals
     try {
       const intervals = IntervalParser.parse(rows);
+      const borehole = new Borehole(intervals);
 
-      TableRenderer.render(intervals);
+      TableRenderer.render(borehole.intervals);
     } catch (error) {
       alert(error.message);
     }

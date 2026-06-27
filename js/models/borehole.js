@@ -1,5 +1,5 @@
 class Borehole {
-  constructor() {
+  constructor(intervals = []) {
     this.metadata = {
       id: "",
 
@@ -14,10 +14,11 @@ class Borehole {
       operator: "",
     };
 
-    this.intervals = [];
+    this.intervals = intervals;
 
     this.documents = [];
 
     this.scans = [];
   }
 }
+window.Borehole = Borehole;
