@@ -1,20 +1,8 @@
 class Borehole {
-  constructor(intervals = []) {
-    this.metadata = {
-      id: "",
+  constructor() {
+    this.metadata = {};
 
-      company: "",
-
-      coordinates: "",
-
-      drillingDate: "",
-
-      depth: "",
-
-      operator: "",
-    };
-
-    this.intervals = intervals;
+    this.intervals = [];
 
     this.documents = [];
 

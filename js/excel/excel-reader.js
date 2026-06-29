@@ -7,15 +7,11 @@ const ExcelReader = {
         type: "binary",
       });
 
-      const sheet = workbook.Sheets[workbook.SheetNames[0]];
-
-      const rows = XLSX.utils.sheet_to_json(sheet, {
-        header: 1,
-      });
-
-      callback(rows);
+      callback(workbook);
     };
 
     reader.readAsBinaryString(file);
   },
 };
+
+window.ExcelReader = ExcelReader;
