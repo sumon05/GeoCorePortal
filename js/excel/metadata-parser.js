@@ -9,6 +9,22 @@ function getValueByLabel(rows, label) {
 
   return "";
 }
+function parseCoordinate(coordinateString) {
+  if (!coordinateString) {
+    return null;
+  }
+
+  const parts = coordinateString.split(",");
+
+  if (parts.length !== 2) {
+    return null;
+  }
+
+  return {
+    easting: parseFloat(parts[0].trim()),
+    northing: parseFloat(parts[1].trim()),
+  };
+}
 const MetadataParser = {
   parse(rows) {
     return {
@@ -19,6 +35,7 @@ const MetadataParser = {
       date: getValueByLabel(rows, "Datum der Bohrung:"),
       editedBy: getValueByLabel(rows, "Bearbeiter:"),
       editedOn: DateUtils.excelDateToString(getValueByLabel(rows, "Datum:")),
+      location: parseCoordinate(getValueByLabel(rows, "Koordinaten/UTM32:")),
     };
   },
 };

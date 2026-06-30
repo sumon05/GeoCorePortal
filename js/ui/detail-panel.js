@@ -21,5 +21,8 @@ const DetailPanel = {
 
     $("#detailPanel").html(html);
   },
+  clear() {
+    $("#detailPanel").html("");
+  },
 };
 window.DetailPanel = DetailPanel;

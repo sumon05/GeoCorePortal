@@ -1,6 +1,7 @@
 $(document).ready(function () {
   MapService.init();
 });
+
 $("#importBtn").click(function () {
   const file = $("#excelFile")[0].files[0];
 
@@ -16,22 +17,33 @@ $("#importBtn").click(function () {
       const rows = XLSX.utils.sheet_to_json(sheet, {
         header: 1,
       });
-      console.log("Current Sheet:", sheetName);
-      console.table(rows);
 
-      // Parse intervals
       try {
         const borehole = ImportService.import(rows);
+
         BoreholeRepository.add(borehole);
 
-        MetadataPanel.render(borehole.metadata);
+        const point = CoordinateService.toLatLng(borehole.metadata.location);
 
-        TableRenderer.render(borehole.intervals);
-
-        BoreholeList.render(BoreholeRepository.getAll());
+        const marker = MapService.addMarker(point, borehole.metadata.id);
+        borehole.marker = marker;
       } catch (error) {
-        alert(error.message);
+        console.error(error);
+
+        alert(error);
       }
     });
+
+    BoreholeList.render(BoreholeRepository.getAll());
+
+    MapService.fitToMarkers();
+
+    // Select first borehole automatically
+
+    const first = BoreholeRepository.getAll()[0];
+
+    if (first) {
+      const test = SelectionService.select(first);
+    }
   });
 });

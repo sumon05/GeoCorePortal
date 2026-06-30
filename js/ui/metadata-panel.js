@@ -7,6 +7,14 @@ const MetadataPanel = {
     date: "Bohrdatum",
     editedBy: "Bearbeiter",
     editedOn: "Bearbeitet am",
+    location: "Koordinaten (UTM32)",
+  },
+  formatValue(key, value) {
+    if (key === "location" && value) {
+      return `${value.easting}, ${value.northing}`;
+    }
+
+    return value ?? "";
   },
 
   render(metadata) {
@@ -21,10 +29,14 @@ const MetadataPanel = {
     `;
 
     Object.entries(metadata).forEach(([key, value]) => {
+      /* if (key === "location" && value) {
+        value = `${"Easting:"}${value.easting}, ${"Northing:"}${value.northing}`;
+      } */
+
       html += `
         <tr>
           <th>${this.labels[key] ?? key}</th>
-          <td>${value || "-"}</td>
+          <td>${this.formatValue(key, value) || "-"}</td>
         </tr>
       `;
     });

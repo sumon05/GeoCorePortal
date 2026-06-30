@@ -1,18 +1,20 @@
 const BoreholeList = {
   render(boreholes) {
-    let html = "<ul>";
+    const list = $("<ul>");
 
     boreholes.forEach((borehole) => {
-      html += `
-                <li>
-                    ${borehole.metadata.id}
-                </li>
-            `;
+      const item = $("<li>");
+
+      item.text(borehole.metadata.id);
+
+      item.on("click", function () {
+        SelectionService.select(borehole);
+      });
+
+      list.append(item);
     });
 
-    html += "</ul>";
-
-    $("#boreholeList").html(html);
+    $("#boreholeList").empty().append(list);
   },
 };
 
