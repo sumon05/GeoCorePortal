@@ -149,6 +149,7 @@ Clone the repository
 git clone https://github.com/yourusername/GeoCorePortal.git
 ```
 
+```text
 Open the project in Visual Studio Code.
 
 Install the Live Server extension (if not already installed).
@@ -158,6 +159,7 @@ Right-click index.html and select Open with Live Server.
 The application will be available at:
 
 http://127.0.0.1:5500
+```
 
 ## Usage
 
