@@ -12,8 +12,6 @@ A modular Web GIS application for importing, managing and visualizing geological
 
 ![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
-A modular JavaScript Web GIS application demonstrating Excel data processing, coordinate transformation and interactive geological visualization.
-
 ## Overview
 
 GeoCorePortal is a modular Web GIS application for importing, managing and visualizing geological borehole data stored in Microsoft Excel workbooks.
@@ -36,7 +34,6 @@ The project follows modern software engineering principles including modular arc
 - [Technologies](#technologies)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Workflow](#workflow)
 - [Current Status](#current-status)
 - [Roadmap](#roadmap)
 - [Version History](#version-history)
@@ -127,6 +124,16 @@ GeoCorePortal was developed following modern software engineering practices:
 
 ![Workflow](docs/diagrams/workflow.png)
 
+1. Select an Excel workbook.
+2. Import all worksheets.
+3. Parse metadata.
+4. Parse borehole intervals.
+5. Store boreholes in the repository.
+6. Convert coordinates.
+7. Display boreholes on the map.
+8. Select a borehole from the list.
+9. View metadata and interval details.
+
 ## Folder Structure
 
 ![Folder Structure](docs/diagrams/folder-structure.png)
@@ -174,18 +181,6 @@ http://127.0.0.1:5500
 6. View metadata.
 7. Inspect geological intervals.
 8. Explore borehole locations on the map.
-
-## Workflow
-
-1. Select an Excel workbook.
-2. Import all worksheets.
-3. Parse metadata.
-4. Parse borehole intervals.
-5. Store boreholes in the repository.
-6. Convert coordinates.
-7. Display boreholes on the map.
-8. Select a borehole from the list.
-9. View metadata and interval details.
 
 ## Current Status
 
@@ -266,10 +261,6 @@ Special thanks to the open-source community for the following libraries:
 - Proj4JS
 - Bootstrap
 - OpenStreetMap
-
-```
-
-```
 
 ```
 
