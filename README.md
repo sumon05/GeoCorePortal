@@ -12,9 +12,13 @@ A modular Web GIS application for importing, managing and visualizing geological
 
 ![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
+A modular JavaScript Web GIS application demonstrating Excel data processing, coordinate transformation and interactive geological visualization.
+
 ## Overview
 
-GeoCorePortal is a modular Web GIS application for importing, managing and visualizing geological borehole data from Microsoft Excel workbooks.
+GeoCorePortal is a modular Web GIS application for importing, managing and visualizing geological borehole data stored in Microsoft Excel workbooks.
+
+The project demonstrates how traditional Excel-based geological workflows can be transformed into an interactive Web GIS application using modern JavaScript software architecture and geospatial technologies.
 
 The application automatically imports one or multiple worksheets, extracts borehole metadata and geological intervals, converts projected UTM32 coordinates into WGS84 geographic coordinates and visualizes boreholes on an interactive Leaflet map.
 
@@ -24,17 +28,18 @@ The project follows modern software engineering principles including modular arc
 
 - [Overview](#overview)
 - [Project Objectives](#project-objectives)
-- [Features](#features)
-- [Folder Structure](#folder-structure)
 - [Screenshots](#screenshots)
+- [Features](#features)
+- [Design Principles](#design-principles)
 - [Software Architecture](#software-architecture)
+- [Folder Structure](#folder-structure)
 - [Technologies](#technologies)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Workflow](#workflow)
 - [Current Status](#current-status)
 - [Roadmap](#roadmap)
-- [Future Improvements](#future-improvements)
+- [Version History](#version-history)
 - [Author](#author)
 - [License](#license)
 
@@ -49,6 +54,20 @@ The project was developed to demonstrate:
 - Coordinate transformation
 - Interactive mapping
 - Clean software architecture
+
+## Screenshots
+
+### Main Application
+
+![Main Window](docs/screenshots/main.png)
+
+### Borehole Selection
+
+![Selection](docs/screenshots/selection.png)
+
+### Interactive Map
+
+![Map](docs/screenshots/map.png)
 
 ## Features
 
@@ -74,64 +93,43 @@ The project was developed to demonstrate:
 - Core log viewer
 - Interval details
 
-### Software Architecture
+## Design Principles
+
+GeoCorePortal was developed following modern software engineering practices:
 
 - Repository Pattern
-- Service Layer
+- Service Layer Pattern
 - Domain Models
+- Single Responsibility Principle (SRP)
+- Separation of Concerns
 - Modular UI Components
-
-## Folder Structure
-
-```text
-GeoCorePortal
-│
-├── assets
-├── css
-├── docs
-├── js
-│   ├── excel
-│   ├── map
-│   ├── models
-│   ├── repositories
-│   ├── services
-│   ├── ui
-│   └── utils
-├── sample-data
-├── index.html
-└── README.md
-```
-
-## System Architecture
-
-![System Architecture](docs/diagrams/system-architecture.png)
-
-## Screenshots
-
-### Main Application
-
-![Main Window](docs/screenshots/main.png)
-
-### Borehole Selection
-
-![Selection](docs/screenshots/selection.png)
-
-### Interactive Map
-
-![Map](docs/screenshots/map.png)
+- Reusable Services
 
 ## Software Architecture
 
-The application follows a modular architecture consisting of:
+### System Architecture
 
-- UI Layer
-- Service Layer
-- Repository Layer
-- Domain Models
-- Excel Parser
-- Utility Layer
+![System](docs/diagrams/system-architecture.png)
 
-Each module has a single responsibility, resulting in a clean and maintainable codebase.
+### Component Diagram
+
+![Component](docs/diagrams/component-diagram.png)
+
+### Data Flow
+
+![Flow](docs/diagrams/data-flow.png)
+
+### Class Diagram
+
+![Class](docs/diagrams/class-diagram.png)
+
+### Workflow
+
+![Workflow](docs/diagrams/workflow.png)
+
+## Folder Structure
+
+![Folder Structure](docs/diagrams/folder-structure.png)
 
 ## Technologies
 
@@ -153,7 +151,6 @@ Clone the repository
 git clone https://github.com/yourusername/GeoCorePortal.git
 ```
 
-```text
 Open the project in Visual Studio Code.
 
 Install the Live Server extension (if not already installed).
@@ -162,7 +159,9 @@ Right-click index.html and select Open with Live Server.
 
 The application will be available at:
 
+```
 http://127.0.0.1:5500
+
 ```
 
 ## Usage
@@ -190,26 +189,9 @@ http://127.0.0.1:5500
 
 ## Current Status
 
-Current Version: **1.0.0**
-GeoCorePortal Version 1.0 represents the first functional prototype with complete Excel import, metadata extraction, coordinate transformation and interactive GIS visualization.
+Version **1.0.0** is the first stable prototype.
 
-## Why GeoCorePortal?
-
-Geological borehole investigations often generate large amounts of structured Excel data. GeoCorePortal demonstrates how these datasets can be transformed into an interactive Web GIS application using modern JavaScript architecture.
-
-The project combines software engineering principles with geospatial visualization to improve the exploration and management of borehole information.
-
-## Key Design Principles
-
-- Single Responsibility Principle
-- Modular Architecture
-- Separation of Concerns
-- Reusable Components
-- Maintainable Codebase
-- Extensible Service Layer
-- Repository Pattern
-
-### Implemented
+### Implemented modules
 
 - [x] Excel Import
 - [x] Multi-sheet Support
@@ -242,25 +224,28 @@ The project combines software engineering principles with geospatial visualizati
 - Project Management
 - Cloud Deployment
 
-## Future Improvements
+## Version History
 
-- PostgreSQL/PostGIS integration
-- GeoServer integration
-- WMS/WFS support
-- Borehole search
-- Advanced filtering
-- Authentication
-- User management
-- PDF export
-- CSV export
-- Dark mode
-- Mobile optimization
+```md
+### v1.0.0
+
+Initial prototype release featuring:
+
+- Excel workbook import
+- Multi-sheet workbook support
+- Geological metadata extraction
+- Core log parsing
+- Coordinate transformation (UTM32 → WGS84)
+- Interactive Leaflet map
+- Borehole repository
+- Borehole selection
+```
 
 ## Author
 
 **Shaikh Shahidul Islam**
 
-Junior Data Scientist | GIS Software Developer
+GIS Software Developer
 
 📍 Germany
 
@@ -282,17 +267,9 @@ Special thanks to the open-source community for the following libraries:
 - Bootstrap
 - OpenStreetMap
 
-## Version History
+```
 
-### v1.0.0
-
-- Initial public release
-- Excel Import
-- Multi-sheet support
-- Metadata parser
-- Interactive map
-- Coordinate conversion
-- Borehole repository
+```
 
 ```
 
