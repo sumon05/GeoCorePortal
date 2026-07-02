@@ -102,6 +102,10 @@ GeoCorePortal
 └── README.md
 ```
 
+## System Architecture
+
+![System Architecture](docs/diagrams/system-architecture.png)
+
 ## Screenshots
 
 ### Main Application
