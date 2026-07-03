@@ -58,6 +58,10 @@ The project was developed to demonstrate:
 
 ![Main Window](docs/screenshots/main.png)
 
+### Dataset Statistics
+
+![Selection](docs/screenshots/statistics.png)
+
 ### Borehole Selection
 
 ![Selection](docs/screenshots/selection.png)
