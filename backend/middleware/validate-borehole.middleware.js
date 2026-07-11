@@ -1,0 +1,49 @@
+const validateBorehole = (req, res, next) => {
+  const borehole = req.body;
+
+  if (!borehole || Object.keys(borehole).length === 0) {
+    return res.status(400).json({
+      success: false,
+      message: "Request body is required.",
+    });
+  }
+
+  if (!borehole.id) {
+    return res.status(400).json({
+      success: false,
+      message: "Borehole ID is required.",
+    });
+  }
+
+  if (!borehole.boreholeCode) {
+    return res.status(400).json({
+      success: false,
+      message: "Borehole code is required.",
+    });
+  }
+
+  if (!borehole.drillingCompany) {
+    return res.status(400).json({
+      success: false,
+      message: "Drilling company is required.",
+    });
+  }
+
+  if (borehole.totalDepth === undefined) {
+    return res.status(400).json({
+      success: false,
+      message: "Total depth is required.",
+    });
+  }
+
+  if (!borehole.coordinateSystem) {
+    return res.status(400).json({
+      success: false,
+      message: "Coordinate system is required.",
+    });
+  }
+
+  next();
+};
+
+module.exports = validateBorehole;
