@@ -16,6 +16,7 @@ router.post("/", validateBorehole, asyncHandler(BoreholeController.create));
 router.put("/:id", validateBorehole, asyncHandler(BoreholeController.update));
 
 // DELETE
-router.delete("/:id", asyncHandler(BoreholeController.delete));
+//router.delete("/:id", asyncHandler(BoreholeController.delete));
+router.delete("/:id", asyncHandler(BoreholeController.remove));
 
 module.exports = router;

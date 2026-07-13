@@ -15,5 +15,5 @@ app.use("/api/boreholes", boreholeRoutes);
 app.use(errorHandler);
 
 app.listen(PORT, () => {
-  console.log(`${process.env.APP_NAME} started on port ${PORT}`);
+  console.log(`${process.env.APP_NAME} Backend started on port ${PORT}`);
 });

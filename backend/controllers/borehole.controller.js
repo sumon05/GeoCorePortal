@@ -1,22 +1,28 @@
 const BoreholeService = require("../services/borehole.service");
 
 const BoreholeController = {
-  getAll(req, res) {
-    const boreholes = BoreholeService.getAll();
-    res.json(boreholes);
+  async getAll(req, res) {
+    const boreholes = await BoreholeService.getAll();
+    return res.json({
+      success: true,
+      data: boreholes,
+    });
   },
-  getById(req, res) {
-    const borehole = BoreholeService.getById(Number(req.params.id));
+  async getById(req, res) {
+    const borehole = await BoreholeService.getById(req.params.id);
     if (!borehole) {
       return res.status(404).json({
         success: false,
         message: "Borehole not found.",
       });
     }
-    res.json(borehole);
+    return res.json({
+      success: true,
+      data: borehole,
+    });
   },
-  update(req, res) {
-    const borehole = BoreholeService.update(Number(req.params.id), req.body);
+  async update(req, res) {
+    const borehole = await BoreholeService.update(req.params.id, req.body);
     if (!borehole) {
       return res.status(404).json({
         success: false,
@@ -30,23 +36,26 @@ const BoreholeController = {
       data: borehole,
     });
   },
-  delete(req, res) {
-    const deleted = BoreholeService.delete(Number(req.params.id));
-    if (!deleted) {
+  async remove(req, res) {
+    const removed = await BoreholeService.remove(req.params.id);
+    if (!removed) {
       return res.status(404).json({
         success: false,
         message: "Borehole not found.",
       });
     }
-    res.json({
+    return res.json({
       success: true,
       message: "Borehole deleted successfully.",
+      data: removed,
     });
   },
-  create(req, res) {
-    const borehole = BoreholeService.create(req.body);
-
-    res.status(201).json(borehole);
+  async create(req, res) {
+    const borehole = await BoreholeService.create(req.body);
+    return res.status(201).json({
+      success: true,
+      data: borehole,
+    });
   },
 };
 

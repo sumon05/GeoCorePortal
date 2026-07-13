@@ -2,22 +2,26 @@ const Borehole = require("../models/borehole.model");
 const BoreholeRepository = require("../repositories/borehole.repository");
 
 const BoreholeService = {
-  create(data) {
+  async create(data) {
     const borehole = new Borehole(data);
     borehole.validate();
-    return BoreholeRepository.create(borehole);
+    return await BoreholeRepository.create(borehole);
   },
-  getAll() {
-    return BoreholeRepository.findAll();
+  async getAll() {
+    return await BoreholeRepository.findAll();
   },
-  getById(id) {
-    return BoreholeRepository.findById(id);
+  async getById(id) {
+    return await BoreholeRepository.findById(id);
   },
-  update(id, data) {
-    return BoreholeRepository.update(id, data);
+  async update(id, data) {
+    const borehole = new Borehole(data);
+
+    borehole.validate();
+
+    return await BoreholeRepository.update(id, borehole);
   },
-  delete(id) {
-    return BoreholeRepository.delete(id);
+  async remove(id) {
+    return await BoreholeRepository.remove(id);
   },
 };
 
