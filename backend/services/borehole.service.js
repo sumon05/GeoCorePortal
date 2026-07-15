@@ -1,28 +1,22 @@
 const Borehole = require("../models/borehole.model");
+const BaseService = require("./base.service");
 const BoreholeRepository = require("../repositories/borehole.repository");
-
-const BoreholeService = {
+class BoreholeService extends BaseService {
+  constructor() {
+    super(BoreholeRepository, "Borehole");
+  }
   async create(data) {
     const borehole = new Borehole(data);
     borehole.validate();
-    return await BoreholeRepository.create(borehole);
-  },
-  async getAll() {
-    return await BoreholeRepository.findAll();
-  },
-  async getById(id) {
-    return await BoreholeRepository.findById(id);
-  },
+    return await this.repository.create(borehole);
+  }
   async update(id, data) {
     const borehole = new Borehole(data);
 
     borehole.validate();
 
-    return await BoreholeRepository.update(id, borehole);
-  },
-  async remove(id) {
-    return await BoreholeRepository.remove(id);
-  },
-};
+    return this.repository.update(id, borehole);
+  }
+}
 
-module.exports = BoreholeService;
+module.exports = new BoreholeService();

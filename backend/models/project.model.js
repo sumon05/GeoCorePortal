@@ -2,70 +2,87 @@ const ProjectStatus = require("../constants/project-status");
 
 class Project {
   constructor({
-    id,
-    clientId,
-    name,
+    projectId,
+    projectName,
+    clientName,
+    projectLocation,
+    projectStatus = ProjectStatus.ACTIVE,
+    startDate,
+    endDate,
     description,
-    status = ProjectStatus.PLANNING,
-    createdAt = new Date(),
-    updatedAt = new Date(),
   }) {
-    this.id = id;
-    this.clientId = clientId;
-    this.name = name;
+    this.projectId = projectId;
+    this.projectName = projectName;
+    this.clientName = clientName;
+    this.projectLocation = projectLocation;
+    this.projectStatus = projectStatus;
+    this.startDate = startDate;
+    this.endDate = endDate;
     this.description = description;
-    this.status = status;
-    this.createdAt = createdAt;
-    this.updatedAt = updatedAt;
   }
 
   validate() {
-    if (!this.name) {
+    if (!this.projectName?.trim()) {
       throw new Error("Project name is required.");
     }
 
-    if (!this.clientId) {
-      throw new Error("Client is required.");
+    if (!this.clientName?.trim()) {
+      throw new Error("Client name is required.");
+    }
+
+    if (!this.startDate) {
+      throw new Error("Start date is required.");
+    }
+    if (!Object.values(ProjectStatus).includes(this.projectStatus)) {
+      throw new Error("Invalid project status.");
     }
   }
 
   activate() {
-    this.status = ProjectStatus.ACTIVE;
-    this.updatedAt = new Date();
+    this.projectStatus = ProjectStatus.ACTIVE;
   }
 
   complete() {
-    this.status = ProjectStatus.COMPLETED;
-    this.updatedAt = new Date();
+    if (!this.endDate) {
+      throw new Error("Completed projects require an end date.");
+    }
+
+    this.projectStatus = ProjectStatus.COMPLETED;
   }
 
   archive() {
-    this.status = ProjectStatus.ARCHIVED;
-    this.updatedAt = new Date();
+    this.projectStatus = ProjectStatus.ARCHIVED;
   }
 
   isActive() {
-    return this.status === ProjectStatus.ACTIVE;
+    return this.projectStatus === ProjectStatus.ACTIVE;
   }
 
   isCompleted() {
-    return this.status === ProjectStatus.COMPLETED;
+    return this.projectStatus === ProjectStatus.COMPLETED;
+  }
+  isArchived() {
+    return this.projectStatus === ProjectStatus.ARCHIVED;
   }
 
   rename(newName) {
-    this.name = newName;
-    this.updatedAt = new Date();
+    if (!newName || newName.trim() === "") {
+      throw new Error("Project name cannot be empty.");
+    }
+
+    this.projectName = newName.trim();
   }
 
   toJSON() {
     return {
-      id: this.id,
-      clientId: this.clientId,
-      name: this.name,
+      projectId: this.projectId,
+      projectName: this.projectName,
+      clientName: this.clientName,
+      projectLocation: this.projectLocation,
+      projectStatus: this.projectStatus,
+      startDate: this.startDate,
+      endDate: this.endDate,
       description: this.description,
-      status: this.status,
-      createdAt: this.createdAt,
-      updatedAt: this.updatedAt,
     };
   }
 }
