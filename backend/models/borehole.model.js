@@ -42,6 +42,10 @@ class Borehole {
     }
 
     if (!this.coordinateSystem) throw new Error("Coordinate system is required.");
+
+    if (!this.projectId) {
+      throw new Error("Project ID is required.");
+    }
   }
   getCoordinates() {
     return {

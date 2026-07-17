@@ -1,10 +1,8 @@
-const ProjectStatus = {
-  PLANNING: "Planning",
-  ACTIVE: "Active",
-  COMPLETED: "Completed",
-  ARCHIVED: "Archived",
-};
-
-Object.freeze(ProjectStatus);
+const ProjectStatus = Object.freeze({
+  PLANNING: "PLANNING",
+  ACTIVE: "ACTIVE",
+  COMPLETED: "COMPLETED",
+  ARCHIVED: "ARCHIVED",
+});
 
 module.exports = ProjectStatus;
