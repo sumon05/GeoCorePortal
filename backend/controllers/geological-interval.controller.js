@@ -33,6 +33,10 @@ const GeologicalIntervalController = {
     );
     return Response.success(res, intervals);
   },
+  async validate(req, res) {
+    const report = await GeologicalIntervalService.validateByBoreholeId(req.params.boreholeId);
+    return Response.success(res, report);
+  },
 };
 
 module.exports = GeologicalIntervalController;

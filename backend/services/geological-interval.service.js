@@ -2,17 +2,23 @@ const GeologicalInterval = require("../models/geological-interval.model");
 const BaseService = require("./base.service");
 const GeologicalIntervalRepository = require("../repositories/geological-interval.repository");
 const ValidationError = require("../errors/validation.error");
+const IntervalDomainService = require("../domain/interval-domain.service");
 
 class GeologicalIntervalService extends BaseService {
   constructor() {
     super(GeologicalIntervalRepository, "GeologicalInterval");
   }
+  //introduce findGaps during creation and update of intervals
   async create(data) {
     const geologicalInterval = new GeologicalInterval(data);
     geologicalInterval.validate();
     const existingIntervals = await this.repository.findByBoreholeId(geologicalInterval.boreholeId);
-    if (this.hasOverlap(geologicalInterval, existingIntervals)) {
-      throw new ValidationError("GeologicalInterval overlaps with existing intervals.");
+    const report = IntervalDomainService.validateIntervals([
+      ...existingIntervals,
+      geologicalInterval,
+    ]);
+    if (report.overlaps.length > 0) {
+      throw new ValidationError("Geological intervals overlap.", report);
     }
     return await this.repository.create(geologicalInterval);
   }
@@ -21,18 +27,19 @@ class GeologicalIntervalService extends BaseService {
     geologicalInterval.validate();
     const existingIntervals = await this.repository.findByBoreholeId(geologicalInterval.boreholeId);
     const otherIntervals = existingIntervals.filter((interval) => interval.intervalId !== id);
-    if (this.hasOverlap(geologicalInterval, otherIntervals)) {
-      throw new ValidationError("GeologicalInterval overlaps with an existing intervals.");
+    const report = IntervalDomainService.validateIntervals([...otherIntervals, geologicalInterval]);
+    if (report.overlaps.length > 0) {
+      throw new ValidationError("Geological intervals overlap.", report);
     }
     return await this.repository.update(id, geologicalInterval);
   }
   async getIntervalsByBoreholeId(boreholeId) {
     return await this.repository.findByBoreholeId(boreholeId);
   }
-  hasOverlap(newInterval, existingIntervals) {
-    return existingIntervals.some((interval) => {
-      return newInterval.fromDepth < interval.toDepth && newInterval.toDepth > interval.fromDepth;
-    });
+  async validateByBoreholeId(boreholeId) {
+    const intervals = await this.repository.findByBoreholeId(boreholeId);
+
+    return IntervalDomainService.validateIntervals(intervals);
   }
 }
 module.exports = new GeologicalIntervalService();

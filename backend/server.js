@@ -10,12 +10,14 @@ const healthRoutes = require("./routes/health.routes");
 const boreholeRoutes = require("./routes/borehole.routes");
 const projectRoutes = require("./routes/project.routes");
 const geologicalIntervalRoutes = require("./routes/geological-interval.routes");
+const excelImportRoutes = require("./routes/excel-import.routes");
 const errorHandler = require("./middleware/error-handler.middleware");
 
 app.use("/api/health", healthRoutes);
 app.use("/api/boreholes", boreholeRoutes);
 app.use("/api/projects", projectRoutes);
 app.use("/api/geological-intervals", geologicalIntervalRoutes);
+app.use("/api/import", excelImportRoutes);
 app.use(errorHandler);
 
 app.listen(PORT, () => {

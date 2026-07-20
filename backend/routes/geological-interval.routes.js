@@ -5,8 +5,9 @@ const GeologicalIntervalController = require("../controllers/geological-interval
 
 //GET
 router.get("/", GeologicalIntervalController.getAll);
-router.get("/borehole/:boreholeId", GeologicalIntervalController.getIntervalsByBoreholeId);
 router.get("/:id", GeologicalIntervalController.getById);
+router.get("/borehole/:boreholeId", GeologicalIntervalController.getIntervalsByBoreholeId);
+router.get("/borehole/:boreholeId/validation", GeologicalIntervalController.validate);
 //POST
 router.post("/", GeologicalIntervalController.create);
 //PUT
