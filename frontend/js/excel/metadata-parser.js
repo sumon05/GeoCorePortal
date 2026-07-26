@@ -34,7 +34,7 @@ const MetadataParser = {
       depth: getValueByLabel(rows, "Bohrteufe:"),
       date: getValueByLabel(rows, "Datum der Bohrung:"),
       editedBy: getValueByLabel(rows, "Bearbeiter:"),
-      editedOn: DateUtils.excelDateToString(getValueByLabel(rows, "Datum:")),
+      editedOn: DateUtils.excelDateToDisplay(getValueByLabel(rows, "Datum:")),
       location: parseCoordinate(getValueByLabel(rows, "Koordinaten/UTM32:")),
     };
   },
