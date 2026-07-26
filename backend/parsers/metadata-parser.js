@@ -1,3 +1,4 @@
+const DateUtils = require("../utils/date-utils");
 function findValueByLabel(rows, label) {
   for (const row of rows) {
     const index = row.indexOf(label);
@@ -25,17 +26,29 @@ function parseCoordinate(coordinateString) {
     northing: parseFloat(parts[1].trim()),
   };
 }
+
 const MetadataParser = {
   parse(rows) {
+    const depth = findValueByLabel(rows, "Bohrteufe:");
+    const totalDepth = Number.parseFloat(String(depth).replace(",", "."));
     return {
       id: findValueByLabel(rows, "Bohrloch-ID:"),
       company: findValueByLabel(rows, "Bohrfima:"),
-      drillingMachine: findValueByLabel(rows, "Bohrgerät:"),
-      depth: findValueByLabel(rows, "Bohrteufe:"),
+      drillingRig: findValueByLabel(rows, "Bohrgerät:"),
+
+      totalDepth,
+
       date: findValueByLabel(rows, "Datum der Bohrung:"),
       editedBy: findValueByLabel(rows, "Bearbeiter:"),
-      editedOn: findValueByLabel(rows, "Datum:"),
-      location: parseCoordinate(findValueByLabel(rows, "Koordinaten/UTM32:")),
+      editedOn: DateUtils.excelDateToISO(findValueByLabel(rows, "Datum:")),
+
+      coordinates: parseCoordinate(findValueByLabel(rows, "Koordinaten/UTM32:")),
+
+      coordinateSystem: "EPSG:25832",
+
+      elevation: null,
+
+      remark: null,
     };
   },
 };

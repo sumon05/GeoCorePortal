@@ -8,15 +8,21 @@ CREATE TABLE geological_intervals (
 
     to_depth NUMERIC(10,2) NOT NULL,
 
+    classification VARCHAR(100),
+
     lithology VARCHAR(100) NOT NULL,
 
-    weathering VARCHAR(100),
+    crystallinity VARCHAR(100),
+
+    mineral_content VARCHAR(100),
+
+    texture VARCHAR(255),
+
+    structures VARCHAR(255),
 
     alteration VARCHAR(100),
 
-    strength VARCHAR(100),
-
-    description TEXT,
+    remark TEXT,
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 

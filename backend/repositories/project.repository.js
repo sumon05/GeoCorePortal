@@ -2,19 +2,18 @@ const BaseRepository = require("./base.repository");
 const ProjectMapper = require("../mappers/project.mapper");
 const ProjectAssembler = require("../assemblers/project.assembler");
 class ProjectRepository extends BaseRepository {
-  constructor() {
-    super();
-  }
-  async findAll() {
-    const result = await this.query(`
+  async findAll(client = null) {
+    const result = await this.query(
+      `
     SELECT *
     FROM projects
     ORDER BY created_at;
-  `);
-
+    `,
+      client,
+    );
     return result.rows.map(ProjectMapper.toDomain);
   }
-  async findById(id) {
+  async findById(id, client = null) {
     const result = await this.query(
       `
     SELECT *
@@ -22,14 +21,16 @@ class ProjectRepository extends BaseRepository {
     WHERE project_id = $1;
     `,
       [id],
+      client,
     );
     if (result.rows.length === 0) {
       return null;
     }
     return ProjectMapper.toDomain(result.rows[0]);
   }
-  async create(project) {
-    const dbProject = ProjectMapper.toPersistence(project);
+  async create(project, client = null) {
+    project.validate();
+    const persistenceProject = ProjectMapper.toPersistence(project);
     const result = await this.query(
       `
     INSERT INTO projects (project_name, client_name, project_location, project_status, start_date, end_date, description)
@@ -37,18 +38,19 @@ class ProjectRepository extends BaseRepository {
     RETURNING *;
     `,
       [
-        dbProject.project_name,
-        dbProject.client_name,
-        dbProject.project_location,
-        dbProject.project_status,
-        dbProject.start_date,
-        dbProject.end_date,
-        dbProject.description,
+        persistenceProject.project_name,
+        persistenceProject.client_name,
+        persistenceProject.project_location,
+        persistenceProject.project_status,
+        persistenceProject.start_date,
+        persistenceProject.end_date,
+        persistenceProject.description,
       ],
+      client,
     );
     return ProjectMapper.toDomain(result.rows[0]);
   }
-  async update(id, project) {
+  async update(id, project, client = null) {
     const result = await this.query(
       `
     UPDATE projects
@@ -66,13 +68,14 @@ class ProjectRepository extends BaseRepository {
         project.description,
         id,
       ],
+      client,
     );
     if (result.rows.length === 0) {
       return null;
     }
     return ProjectMapper.toDomain(result.rows[0]);
   }
-  async remove(id) {
+  async remove(id, client = null) {
     const result = await this.query(
       `
     DELETE FROM projects
@@ -80,13 +83,14 @@ class ProjectRepository extends BaseRepository {
     RETURNING *;
     `,
       [id],
+      client,
     );
     if (result.rows.length === 0) {
       return null;
     }
     return ProjectMapper.toDomain(result.rows[0]);
   }
-  async findWithBoreholes(projectId) {
+  async findWithBoreholes(projectId, client = null) {
     const result = await this.query(
       `
     SELECT
@@ -118,6 +122,7 @@ class ProjectRepository extends BaseRepository {
     WHERE p.project_id = $1;
     `,
       [projectId],
+      client,
     );
 
     return ProjectAssembler.assemble(result.rows);

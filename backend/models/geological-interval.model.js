@@ -4,21 +4,27 @@ class GeologicalInterval {
     boreholeId,
     fromDepth,
     toDepth,
+    classification,
     lithology,
-    weathering,
+    crystallinity,
+    mineralContent,
+    texture,
+    structures,
     alteration,
-    strength,
-    description,
+    remark,
   }) {
     this.intervalId = intervalId;
     this.boreholeId = boreholeId;
     this.fromDepth = fromDepth;
     this.toDepth = toDepth;
+    this.classification = classification;
     this.lithology = lithology;
-    this.weathering = weathering;
+    this.crystallinity = crystallinity;
+    this.mineralContent = mineralContent;
+    this.texture = texture;
+    this.structures = structures;
     this.alteration = alteration;
-    this.strength = strength;
-    this.description = description;
+    this.remark = remark;
   }
 
   validate() {
@@ -30,8 +36,8 @@ class GeologicalInterval {
       throw new Error("Depth values cannot be negative.");
     }
     //Lithology is mandetory
-    if (!this.lithology?.trim()) {
-      throw new Error("Lithology is required.");
+    if (!this.classification?.trim()) {
+      throw new Error("Classification is required.");
     }
     if (!this.boreholeId) {
       throw new Error("Borehole ID is required.");
@@ -44,10 +50,12 @@ class GeologicalInterval {
       fromDepth: this.fromDepth,
       toDepth: this.toDepth,
       lithology: this.lithology,
-      weathering: this.weathering,
+      crystallinity: this.crystallinity,
+      mineralContent: this.mineralContent,
+      texture: this.texture,
+      structures: this.structures,
       alteration: this.alteration,
-      strength: this.strength,
-      description: this.description,
+      remark: this.remark,
     };
   }
 }

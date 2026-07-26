@@ -26,14 +26,7 @@ class Project {
       throw new Error("Project name is required.");
     }
 
-    if (!this.clientName?.trim()) {
-      throw new Error("Client name is required.");
-    }
-
-    if (!this.startDate) {
-      throw new Error("Start date is required.");
-    }
-    if (!Object.values(ProjectStatus).includes(this.projectStatus)) {
+    if (this.projectStatus && !Object.values(ProjectStatus).includes(this.projectStatus)) {
       throw new Error("Invalid project status.");
     }
   }

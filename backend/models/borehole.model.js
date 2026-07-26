@@ -6,7 +6,7 @@ class Borehole {
     drillingCompany,
     drillingRig,
     totalDepth,
-    coordinateSystem,
+    coordinateSystem = "EPSG:25832",
     easting,
     northing,
     elevation,

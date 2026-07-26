@@ -5,16 +5,19 @@ class BoreholeRepository extends BaseRepository {
   constructor() {
     super();
   }
-  async findAll() {
-    const result = await this.query(`
+  async findAll(client = null) {
+    const result = await this.query(
+      `
     SELECT *
     FROM boreholes
     ORDER BY created_at;
-  `);
+  `,
+      client,
+    );
 
     return result.rows.map(BoreholeMapper.toDomain);
   }
-  async findById(id) {
+  async findById(id, client = null) {
     const result = await this.query(
       `
     SELECT *
@@ -22,6 +25,7 @@ class BoreholeRepository extends BaseRepository {
     WHERE borehole_id = $1;
     `,
       [id],
+      client,
     );
 
     if (result.rows.length === 0) {
@@ -31,7 +35,7 @@ class BoreholeRepository extends BaseRepository {
     return BoreholeMapper.toDomain(result.rows[0]);
   }
 
-  async create(borehole) {
+  async create(borehole, client = null) {
     const result = await this.query(
       `
     INSERT INTO boreholes (
@@ -63,11 +67,12 @@ class BoreholeRepository extends BaseRepository {
         borehole.elevation,
         borehole.remarks,
       ],
+      client,
     );
 
     return BoreholeMapper.toDomain(result.rows[0]);
   }
-  async update(id, updatedBorehole) {
+  async update(id, updatedBorehole, client = null) {
     const result = await this.query(
       `
     UPDATE boreholes
@@ -98,15 +103,17 @@ class BoreholeRepository extends BaseRepository {
         updatedBorehole.remarks,
         id,
       ],
+      client,
     );
     if (result.rows.length === 0) {
       return null;
     }
     return BoreholeMapper.toDomain(result.rows[0]);
   }
-  async remove(id) {
+  async remove(id, client = null) {
     const result = await this.query("DELETE FROM boreholes WHERE borehole_id = $1 RETURNING *;", [
       id,
+      client,
     ]);
     if (result.rows.length === 0) {
       return null;
